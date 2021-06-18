@@ -20,8 +20,6 @@ app.get("/", function (_req, res) {
   );
 });
 
-// If we used `/files/*`, the name could be accessed via req.params[0]
-// but here we have named it using :file
 app.get("/files/:file(*)", async function (req, res, next) {
   const filePath = join(__dirname, req.params.file);
   console.log("Object", req.headers);
@@ -38,7 +36,6 @@ app.get("/files/:file(*)", async function (req, res, next) {
       return;
     }
 
-    // non-404 error
     return next(err);
   }
 });
