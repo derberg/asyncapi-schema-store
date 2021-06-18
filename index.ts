@@ -13,11 +13,10 @@ const app = opine();
 const __dirname = dirname(import.meta.url);
 
 app.get("/", function (_req, res) {
-  
   res.send(
     "<ul>" +
       '<li>Download <a href="/files/2.0.0.json">AsyncAPI 2.0.0 JSON Schema</a>.</li>' +
-    "</ul>",
+      "</ul>",
   );
 });
 
@@ -25,11 +24,11 @@ app.get("/", function (_req, res) {
 // but here we have named it using :file
 app.get("/files/:file(*)", async function (req, res, next) {
   const filePath = join(__dirname, req.params.file);
-  console.log('Object', req.headers);
-  console.log('IP', await getIPLocation(req.ip));
+  console.log("Object", req.headers);
+  console.log("IP", await getIPLocation(req.ip));
   try {
     await res.download(filePath);
-    console.log('Spec got downloaded by another user :rocket:')
+    console.log("Spec got downloaded by another user :rocket:");
   } catch (err) {
     // file for download not found
     if (err instanceof Deno.errors.NotFound) {
